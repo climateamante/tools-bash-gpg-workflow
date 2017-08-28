@@ -32,7 +32,7 @@ echo "${user_password}"
 }
 
 function current_timestamp (){
-    echo $(date "+%Y.%m.%d.%H%M%S")
+    echo $( date "+%Y.%m.%d.%H%M%S" )
 }
 
 function get_random_alphanum() {
@@ -73,7 +73,7 @@ function create_temp_file () {
 }
 
 
-function gpg_workflow () {
+function encrypt_files_recursively () {
 
     # set working directory
     local work_directory=$( ui_get_local_folder )
@@ -113,17 +113,18 @@ function gpg_workflow () {
 
     done
 
+    # create output directory for archive.tar.gpg files.
     mkdir output
     local output_folder="$(pwd)/output/"
 
-
+    # remove tar files and move gpg files into output folder.
     rm -rf *.tar
     mv *.gpg "${output_folder}"
 
-
+    # remove temp csv file and place into user selected directory.
     mv ${csv_file} "$(pwd)/${csv_filename}"
     rm -rf "${csv_file}"
 
 }
 
-echo $( gpg_workflow )
+echo $( encrypt_files_recursively )
